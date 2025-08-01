@@ -1,0 +1,12 @@
+[project]
+name = "voxel51-hackathon"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "huggingface>=0.0.1",
+    "timm>=1.0.19",
+    "torch==2.6.0",
+    "ultralytics>=8.3.171",
+]
