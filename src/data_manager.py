@@ -133,3 +133,12 @@ class Dataset:
         
         self.dataset.save()
         return None
+
+if __name__ == "__main__":
+    data = Dataset("foodwaste")
+
+    # data.dataset
+
+    # data.add_yoloe_segmentation()
+
+    # data.add_embeddings()
