@@ -8,6 +8,35 @@ import torchvision.transforms as T
 from typing import Optional
 from tqdm import tqdm
 import timm
+from pathlib import Path
+import re
+
+def parse_food_path(path_string: str) -> tuple[list[str], list[int]]:
+    """
+    Parse a food path string and extract food items and their numbers.
+    
+    Args:
+        path_string: A string like "goulash51_rice49_potatoes92"
+        
+    Returns:
+        tuple: (food_items, numbers) where food_items is a list of strings and numbers is a list of integers
+    """
+    # Split by underscore to get individual food items
+    parts = path_string.split('_')
+    
+    food_items = []
+    numbers = []
+    
+    for part in parts:
+        # Use regex to separate letters from numbers
+        match = re.match(r'([a-zA-Z]+)(\d+)', part)
+        if match:
+            food_item = match.group(1)
+            number = int(match.group(2))
+            food_items.append(food_item)
+            numbers.append(number)
+    
+    return food_items, numbers
 
 german_to_english_ingredients_hyphenated = {
     'Fleischbällchen gebrüht': 'poached-meatballs',
@@ -92,6 +121,21 @@ class Dataset:
         self.dataset.apply_model(segmentation_model, label_field="segmentation")
         self.dataset.save()
         return None
+
+    def add_weighted_samples(self,image_dir:str) :
+
+        images = list(Path(image_dir).glob("*/**/*.jpg"))
+
+        for path in images:
+            sample = fo.Sample(filepath=path)
+            food_items, numbers = parse_food_path(path.parent.name)
+            sample["ingredient_name"] = food_items
+            sample["return_quantity"] = numbers
+
+            self.dataset.add_sample(sample)
+
+        self.dataset.save()
+        return None
     
     def add_grounded_sam_segmentations(self, 
                                             sam_path: str="sam2.1_s.pt", 
@@ -136,6 +180,8 @@ class Dataset:
 
 if __name__ == "__main__":
     data = Dataset("foodwaste")
+
+    #data.add_weighted_samples(r"D:\workspace\repos\voxel51-hackathon\data\weighed_dataset")
 
     # data.dataset
 
