@@ -57,9 +57,40 @@ voxel51-hackathon/
 ├── src/
 │   ├── data_manager.py   # Dataset management and preprocessing
 │   └── trainer.py        # Model training and evaluation
+├── notebooks/
+│   ├── food_waste_hackathon_hpi_model_prediction_Sam.ipynb  # Main model training notebook
+│   └── 250801_FoodWasteHackathon_prep_datasets.ipynb       # Dataset preparation notebook
 ├── pyproject.toml        # Project dependencies
 └── README.md
 ```
+
+## 📓 Notebooks
+
+This project includes two Jupyter notebooks that demonstrate the complete workflow:
+
+### 🧠 Model Training Notebook
+**`food_waste_hackathon_hpi_model_prediction_Sam.ipynb`**
+
+This is the main notebook that demonstrates the complete food waste prediction pipeline:
+
+- **Dataset Loading**: Loads the Voxel51 food waste dataset from Hugging Face
+- **Data Preprocessing**: Converts ingredient names to embeddings using Sentence Transformers
+- **Model Architecture**: Implements a multi-modal fusion model combining image and text features
+- **Training Pipeline**: Complete PyTorch training loop with validation
+- **Evaluation**: Model performance analysis and waste prediction examples
+- **Baseline Implementation**: Provides a working baseline for the hackathon challenge
+
+### 📊 Dataset Preparation Notebook  
+**`250801_FoodWasteHackathon_prep_datasets.ipynb`**
+
+This notebook focuses on dataset preparation and management:
+
+- **Data Exploration**: Analyzes the structure and content of the food waste dataset
+- **Dataset Merging**: Combines multiple dataset parts into a unified format
+- **FiftyOne Integration**: Demonstrates how to work with FiftyOne datasets
+- **Data Export**: Shows how to export datasets to Hugging Face Hub
+- **Weighed Dataset Processing**: Handles the weighed dataset with actual waste measurements
+- **Data Validation**: Ensures data quality and consistency across splits
 
 ## 🔧 Usage
 
