@@ -127,6 +127,11 @@ class Dataset:
         images = list(Path(image_dir).glob("*/**/*.jpg"))
 
         for path in images:
+
+            if not path.exists():
+                print(path)
+                continue
+
             sample = fo.Sample(filepath=path)
             food_items, numbers = parse_food_path(path.parent.name)
             sample["ingredient_name"] = food_items
